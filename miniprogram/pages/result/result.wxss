@@ -1,0 +1,288 @@
+.container {
+  min-height: 100vh;
+  padding: 30rpx;
+  background-color: #f5f7fa;
+}
+
+.result-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* 图片样式 */
+.result-image {
+  width: 100%;
+  height: 500rpx;
+  background-color: #f0f2f5;
+}
+
+/* 主要信息区域 */
+.main-info {
+  padding: 30rpx;
+  border-bottom: 2rpx solid #f0f2f5;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.description {
+  font-size: 28rpx;
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* 简介卡片 */
+.intro-card {
+  padding: 30rpx;
+  border-bottom: 2rpx solid #f0f2f5;
+}
+
+.card-header {
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2c3e50;
+  position: relative;
+  padding-left: 24rpx;
+}
+
+.card-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 32rpx;
+  background: #3498db;
+  border-radius: 4rpx;
+}
+
+.intro-text {
+  font-size: 28rpx;
+  color: #34495e;
+  line-height: 1.8;
+}
+
+/* 特征列表 */
+.features-card {
+  padding: 30rpx;
+  border-bottom: 2rpx solid #f0f2f5;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 20rpx;
+  background: #f8fafc;
+  border-radius: 16rpx;
+  transition: transform 0.3s ease;
+}
+
+.feature-item:active {
+  transform: translateX(10rpx);
+}
+
+.feature-icon {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #3498db;
+  margin-top: 12rpx;
+  margin-right: 20rpx;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-type {
+  font-size: 26rpx;
+  color: #7f8c8d;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.feature-text {
+  font-size: 28rpx;
+  color: #34495e;
+  line-height: 1.6;
+}
+
+/* 相关话题 */
+.topics-card {
+  padding: 30rpx;
+}
+
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.topic-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8fafc;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.topic-item:active {
+  transform: translateX(10rpx);
+  background: #eef2f7;
+}
+
+.topic-number {
+  width: 40rpx;
+  height: 40rpx;
+  background: #3498db;
+  color: white;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  margin-right: 20rpx;
+}
+
+.topic-text {
+  font-size: 28rpx;
+  color: #34495e;
+  flex: 1;
+}
+
+/* 底部操作区 */
+.action-area {
+  padding: 30rpx;
+  border-top: 2rpx solid #f0f2f5;
+}
+
+.wiki-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88rpx;
+  background: #3498db;
+  border-radius: 44rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.button-text {
+  margin-right: 12rpx;
+}
+
+.arrow {
+  font-size: 36rpx;
+  transition: transform 0.3s ease;
+}
+
+.button-hover {
+  opacity: 0.9;
+  transform: translateY(2rpx);
+}
+
+.button-hover .arrow {
+  transform: translateX(4rpx);
+}
+
+/* 添加半弹窗样式 */
+.action-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition: all 0.3s ease;
+}
+
+.action-sheet.show {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.action-sheet-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.action-sheet-content {
+  position: relative;
+  background: #ffffff;
+  border-radius: 24rpx 24rpx 0 0;
+  z-index: 1001;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.action-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.action-sheet-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.action-sheet-close {
+  font-size: 40rpx;
+  color: #999;
+  padding: 10rpx;
+}
+
+.action-sheet-body {
+  padding: 20rpx 0;
+}
+
+.action-sheet-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  transition: background-color 0.3s ease;
+}
+
+.action-sheet-item:active {
+  background-color: #f5f5f5;
+}
+
+.item-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.item-text {
+  font-size: 32rpx;
+  color: #333;
+} 

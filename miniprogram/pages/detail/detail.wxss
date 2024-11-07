@@ -1,0 +1,274 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+.scroll-container {
+  height: 100vh;
+}
+
+/* 顶部图片区域 */
+.hero-section {
+  position: relative;
+  height: 500rpx;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40rpx;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+}
+
+.hero-content {
+  color: white;
+}
+
+.plant-name {
+  font-size: 56rpx;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+  display: block;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.3);
+}
+
+.desc-text {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 内容区域 */
+.content-section {
+  padding: 30rpx;
+  margin-top: -50rpx;
+  border-radius: 40rpx 40rpx 0 0;
+  background-color: var(--background-color);
+  position: relative;
+}
+
+/* 卡片通用样式 */
+.abstract-card,
+.info-card,
+.taxonomy-card,
+.distribution-card,
+.catalog-card,
+.source-card {
+  background: var(--card-background);
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 30rpx;
+  padding-left: 20rpx;
+  border-left: 8rpx solid var(--primary-color);
+}
+
+/* 摘要卡片 */
+.abstract-content {
+  position: relative;
+  max-height: 180rpx;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.abstract-content.expanded {
+  max-height: 2000rpx;
+}
+
+.abstract-text {
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.abstract-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  padding: 10rpx;
+  color: var(--primary-color);
+  font-size: 28rpx;
+}
+
+.toggle-icon {
+  width: 16rpx;
+  height: 16rpx;
+  margin-left: 8rpx;
+  border-right: 3rpx solid var(--primary-color);
+  border-bottom: 3rpx solid var(--primary-color);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.expanded {
+  transform: rotate(-135deg);
+}
+
+/* 添加渐变遮罩效果 */
+.abstract-content:not(.expanded)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60rpx;
+  background: linear-gradient(to bottom, transparent, var(--card-background));
+  pointer-events: none;
+}
+
+/* 基本信息网格 */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30rpx;
+}
+
+.info-item {
+  background: rgba(255,255,255,0.5);
+  padding: 20rpx;
+  border-radius: 16rpx;
+  transition: transform 0.2s ease;
+}
+
+.info-item:active {
+  transform: scale(0.98);
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.info-value {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* 分类信息 */
+.taxonomy-list {
+  position: relative;
+}
+
+.taxonomy-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  position: relative;
+}
+
+.taxonomy-line {
+  position: absolute;
+  left: 120rpx;
+  top: 0;
+  bottom: 0;
+  width: 2rpx;
+  background: var(--primary-light);
+}
+
+.taxonomy-label {
+  width: 120rpx;
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.taxonomy-value {
+  flex: 1;
+  font-size: 30rpx;
+  color: var(--text-primary);
+  margin-left: 40rpx;
+}
+
+/* 分布信息 */
+.distribution-item {
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  background: rgba(255,255,255,0.5);
+  border-radius: 16rpx;
+}
+
+.distribution-label {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.distribution-value {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* 目录列表 */
+.catalog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.catalog-item {
+  padding: 20rpx;
+  background: rgba(255,255,255,0.5);
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: var(--primary-color);
+  transition: transform 0.2s ease;
+}
+
+.catalog-item:active {
+  transform: scale(0.98);
+}
+
+/* 来源链接 */
+.source-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.source-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  background: rgba(255,255,255,0.5);
+  border-radius: 16rpx;
+  transition: transform 0.2s ease;
+}
+
+.source-link:active {
+  transform: scale(0.98);
+}
+
+.link-text {
+  font-size: 30rpx;
+  color: var(--primary-color);
+}
+
+.link-icon {
+  font-size: 36rpx;
+  color: var(--primary-color);
+} 

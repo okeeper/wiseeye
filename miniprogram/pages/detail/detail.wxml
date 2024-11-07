@@ -1,0 +1,109 @@
+<view class="container">
+  <scroll-view scroll-y class="scroll-container">
+    <!-- 顶部图片区域 -->
+    <view class="hero-section">
+      <image class="hero-image" 
+             src="{{wikiData.mainImage || plantData.imageUrl}}" 
+             mode="aspectFill"
+             bindtap="previewImage"
+             data-url="{{wikiData.mainImage || plantData.imageUrl}}"/>
+      <view class="hero-overlay">
+        <view class="hero-content">
+          <text class="plant-name">{{wikiData.title || plantData.name}}</text>
+          <text class="desc-text">{{wikiData.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 内容区域 -->
+    <view class="content-section">
+      <!-- 摘要卡片 -->
+      <view class="abstract-card">
+        <view class="card-title">概述</view>
+        <view class="abstract-content {{showFullAbstract ? 'expanded' : ''}}">
+          <text class="abstract-text" user-select="true">{{wikiData.abstract}}</text>
+        </view>
+        <view class="abstract-toggle" hover-class="button-hover" bindtap="toggleAbstract">
+          <text>{{showFullAbstract ? '收起' : '展开'}}</text>
+          <view class="toggle-icon {{showFullAbstract ? 'expanded' : ''}}"></view>
+        </view>
+      </view>
+
+      <!-- 基本信息卡片 -->
+      <view class="info-card" wx:if="{{wikiData.basicInfo.length}}">
+        <view class="card-title">基本信息</view>
+        <view class="info-grid">
+          <view class="info-item" 
+                wx:for="{{wikiData.basicInfo}}" 
+                wx:key="key"
+                bindtap="copyText"
+                data-text="{{item.value[0]}}">
+            <text class="info-label">{{item.name}}</text>
+            <rich-text class="info-value" nodes="{{item.value[0]}}"></rich-text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 分类信息卡片 -->
+      <view class="taxonomy-card" wx:if="{{wikiData.taxonomyInfo.length}}">
+        <view class="card-title">分类信息</view>
+        <view class="taxonomy-list">
+          <view class="taxonomy-item" 
+                wx:for="{{wikiData.taxonomyInfo}}" 
+                wx:key="key"
+                bindtap="copyText"
+                data-text="{{item.value[0]}}">
+            <text class="taxonomy-label">{{item.name}}</text>
+            <rich-text class="taxonomy-value" nodes="{{item.value[0]}}"></rich-text>
+            <view class="taxonomy-line"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 分布信息卡片 -->
+      <view class="distribution-card" wx:if="{{wikiData.distributionInfo.length}}">
+        <view class="card-title">分布与环境</view>
+        <view class="distribution-list">
+          <view class="distribution-item" 
+                wx:for="{{wikiData.distributionInfo}}" 
+                wx:key="key">
+            <text class="distribution-label">{{item.name}}</text>
+            <rich-text class="distribution-value" nodes="{{item.value[0]}}"></rich-text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 目录卡片 -->
+      <view class="catalog-card" wx:if="{{wikiData.catalog.length}}">
+        <view class="card-title">相关内容</view>
+        <view class="catalog-list">
+          <rich-text class="catalog-item" 
+                     wx:for="{{wikiData.catalog}}" 
+                     wx:key="index" 
+                     nodes="{{item}}"
+                     bindtap="openUrl"
+                     data-url="{{wikiData.url}}"></rich-text>
+        </view>
+      </view>
+
+      <!-- 来源链接 -->
+      <view class="source-card">
+        <view class="card-title">查看更多</view>
+        <view class="source-links">
+          <view class="source-link" 
+                bindtap="openUrl"
+                data-url="{{wikiData.url}}">
+            <text class="link-text">在浏览器中查看</text>
+            <text class="link-icon">→</text>
+          </view>
+          <view class="source-link" 
+                bindtap="openUrl"
+                data-url="{{wikiData.wapUrl}}">
+            <text class="link-text">在手机中查看</text>
+            <text class="link-icon">→</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view> 

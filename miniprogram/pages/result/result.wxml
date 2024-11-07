@@ -1,0 +1,94 @@
+<view class="container">
+  <view class="result-card">
+    <!-- 顶部图片区域 -->
+    <image 
+      class="result-image" 
+      src="{{result.imageUrl}}" 
+      mode="aspectFill"
+      bindtap="previewImage"
+    />
+    
+    <!-- 主要信息区域 -->
+    <view class="main-info">
+      <text class="title">{{result.name}}</text>
+      <text class="description">{{result.description}}</text>
+    </view>
+
+    <!-- 简介卡片 -->
+    <view class="intro-card">
+      <view class="card-header">
+        <text class="card-title">简介</text>
+      </view>
+      <text class="intro-text">{{result.introduction}}</text>
+    </view>
+
+    <!-- 特征列表 -->
+    <view class="features-card">
+      <view class="card-header">
+        <text class="card-title">特征</text>
+      </view>
+      <view class="features-list">
+        <view class="feature-item" 
+              wx:for="{{result.characteristics}}" 
+              wx:key="type">
+          <view class="feature-icon"></view>
+          <view class="feature-content">
+            <text class="feature-type">{{item.type}}</text>
+            <text class="feature-text">{{item.feature}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 相关话题 -->
+    <view class="topics-card">
+      <view class="card-header">
+        <text class="card-title">相关话题</text>
+      </view>
+      <view class="topics-list">
+        <view class="topic-item" 
+              wx:for="{{result.topics}}" 
+              wx:key="*this">
+          <text class="topic-number">{{index + 1}}</text>
+          <text class="topic-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部操作区 -->
+    <view class="action-area">
+      <button 
+        class="wiki-button" 
+        bindtap="copyWikiLink"
+        hover-class="button-hover">
+        <text class="button-text">查看百科详情</text>
+        <text class="arrow">→</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 添加半弹窗 -->
+  <view class="action-sheet {{showActionSheet ? 'show' : ''}}">
+    <view class="action-sheet-mask" bindtap="hideWikiOptions"></view>
+    <view class="action-sheet-content">
+      <view class="action-sheet-header">
+        <text class="action-sheet-title">查看方式</text>
+        <view class="action-sheet-close" bindtap="hideWikiOptions">×</view>
+      </view>
+      <view class="action-sheet-body">
+        <view class="action-sheet-item" 
+              bindtap="handleWikiOption" 
+              data-type="browser">
+          <text class="item-icon">🌐</text>
+          <text class="item-text">在浏览器中打开</text>
+        </view>
+        <view class="action-sheet-item" 
+              bindtap="handleWikiOption" 
+              data-type="webview">
+          <text class="item-icon">📱</text>
+          <text class="item-text">在小程序内打开</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

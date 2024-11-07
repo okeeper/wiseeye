@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <view class="header">
+      <text class="title">火眼识物</text>
+      <text class="subtitle">AI智能识别万物</text>
+    </view>
+
+    <view class="content">
+      <button 
+        class="btn-primary" 
+        bindtap="takePhoto"
+        hover-class="button-hover">
+        <text class="btn-text">拍照识别</text>
+      </button>
+      
+      <button 
+        class="btn-secondary" 
+        bindtap="chooseFromAlbum"
+        hover-class="button-hover">
+        <text class="btn-text">从相册选择</text>
+      </button>
+    </view>
+
+    <view class="footer">
+      <text class="tips">支持识别植物、动物、建筑、物品等</text>
+    </view>
+  </view>
+</scroll-view>

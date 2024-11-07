@@ -1,0 +1,76 @@
+/**app.wxss**/
+page {
+  --primary-color: #3f51b5;
+  --primary-light: #e8eaf6;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --background-color: #f8f8f8;
+  --card-background: #ffffff;
+  --card-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  
+  background-color: var(--background-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: var(--text-primary);
+}
+
+/* 首页容器 */
+.index-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* 结果页和详情页容器 */
+.result-container,
+.detail-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+}
+
+.card {
+  background: var(--card-background);
+  border-radius: 24rpx;
+  padding: 40rpx;
+  box-shadow: var(--card-shadow);
+  width: 90%;
+  box-sizing: border-box;
+  margin: 20rpx 0;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 12rpx;
+  padding: 24rpx 0;
+  font-size: 32rpx;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-radius: 12rpx;
+  padding: 24rpx 0;
+  font-size: 32rpx;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.button-hover {
+  opacity: 0.8;
+  transform: translateY(2rpx);
+}

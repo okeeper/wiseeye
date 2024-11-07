@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="content">
+    <!-- 图片预览区 -->
+    <view class="image-container">
+      <image 
+        class="preview-image" 
+        src="{{imageUrl}}" 
+        mode="aspectFill"
+        bindtap="previewImage"
+      ></image>
+      <view class="image-overlay"></view>
+    </view>
+
+    <!-- 提示信息 -->
+    <view class="message-container">
+      <icon class="icon" type="warn" size="64" color="#FFA500"></icon>
+      <text class="title">抱歉，未能识别</text>
+      <text class="subtitle">我还在不断学习中，暂时无法识别此图片</text>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="button-group">
+      <button class="btn-retry" bindtap="retryRecognition">
+        重新识别
+      </button>
+      <button class="btn-home" bindtap="backToHome">
+        返回首页
+      </button>
+    </view>
+  </view>
+</view> 
