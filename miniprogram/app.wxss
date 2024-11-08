@@ -1,41 +1,31 @@
 /**app.wxss**/
 page {
-  --primary-color: #3f51b5;
-  --primary-light: #e8eaf6;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-tertiary: #999999;
-  --background-color: #f8f8f8;
-  --card-background: #ffffff;
-  --card-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  --primary-color: #FF5722;
+  --primary-light: #FFCCBC;
+  --primary-dark: #E64A19;
+  --secondary-color: #1A237E;
+  --secondary-light: #E8EAF6;
+  --text-primary: #263238;
+  --text-secondary: #546E7A;
+  --text-tertiary: #90A4AE;
+  --background-color: #FAFAFA;
+  --card-background: #FFFFFF;
+  --card-shadow: 0 4rpx 20rpx rgba(255, 87, 34, 0.1);
   
   background-color: var(--background-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   color: var(--text-primary);
 }
 
-/* 首页容器 */
-.index-container {
+/* 更新容器样式 */
+.container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* 结果页和详情页容器 */
-.result-container,
-.detail-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  background-color: var(--background-color);
+  background: linear-gradient(135deg, var(--primary-light) 0%, #FFFFFF 100%);
+  padding: 40rpx;
 }
 
 .card {

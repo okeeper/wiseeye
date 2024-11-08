@@ -1,0 +1,57 @@
+<view class="container">
+  <view class="scan-container">
+    <!-- 图片预览区 -->
+    <view class="image-wrapper">
+      <image class="preview-image" src="{{imageUrl}}" mode="aspectFill"></image>
+      
+      <!-- 扫描动画层 -->
+      <view class="scan-overlay">
+        <!-- 扫描线 -->
+        <view wx:for="{{scanLines}}" 
+              wx:key="index" 
+              class="scan-line"
+              style="top: {{item}}%">
+        </view>
+        
+        <!-- 四角标记 -->
+        <view class="corner-marks">
+          <view class="corner top-left"></view>
+          <view class="corner top-right"></view>
+          <view class="corner bottom-left"></view>
+          <view class="corner bottom-right"></view>
+        </view>
+
+        <!-- 扫描框 -->
+        <view class="scan-frame"></view>
+      </view>
+    </view>
+
+    <!-- 进度信息 -->
+    <view class="progress-info">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{scanProgress}}%"></view>
+      </view>
+      <view class="status-text">正在分析图像... {{scanProgress}}%</view>
+      
+      <!-- 分析项目 -->
+      <view class="analysis-items">
+        <view class="analysis-item {{scanProgress > 20 ? 'active' : ''}}">
+          <text class="item-dot"></text>
+          <text class="item-text">图像预处理</text>
+        </view>
+        <view class="analysis-item {{scanProgress > 40 ? 'active' : ''}}">
+          <text class="item-dot"></text>
+          <text class="item-text">特征提取</text>
+        </view>
+        <view class="analysis-item {{scanProgress > 60 ? 'active' : ''}}">
+          <text class="item-dot"></text>
+          <text class="item-text">模型识别</text>
+        </view>
+        <view class="analysis-item {{scanProgress > 80 ? 'active' : ''}}">
+          <text class="item-dot"></text>
+          <text class="item-text">结果分析</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

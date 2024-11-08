@@ -1,0 +1,273 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--primary-light) 0%, #FFFFFF 100%);
+  padding: 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.scan-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+/* 图片预览区域 */
+.image-wrapper {
+  width: 90vw;
+  height: 50vh;
+  position: relative;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  margin: 20rpx auto;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 扫描动画层 - 降低透明度和模糊度 */
+.scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1px);
+}
+
+/* 扫描网格 - 增加网格线的可见度 */
+.scan-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 87, 34, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 87, 34, 0.15) 1px, transparent 1px);
+  background-size: 30rpx 30rpx;
+  animation: gridMove 15s linear infinite;
+}
+
+/* 扫描线 - 增加亮度 */
+.scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4rpx;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--primary-color) 50%, 
+    transparent 100%
+  );
+  box-shadow: 0 0 30rpx var(--primary-color);
+  opacity: 0.9;
+  animation: scanMove 2s linear infinite;
+}
+
+/* 四角标记 - 增加可见度 */
+.corner-marks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid var(--primary-color);
+  opacity: 0.9;
+  animation: glow 2s infinite;
+}
+
+.top-left {
+  top: 40rpx;
+  left: 40rpx;
+  border-right: none;
+  border-bottom: none;
+}
+
+.top-right {
+  top: 40rpx;
+  right: 40rpx;
+  border-left: none;
+  border-bottom: none;
+}
+
+.bottom-left {
+  bottom: 40rpx;
+  left: 40rpx;
+  border-right: none;
+  border-top: none;
+}
+
+.bottom-right {
+  bottom: 40rpx;
+  right: 40rpx;
+  border-left: none;
+  border-top: none;
+}
+
+/* 扫描框 - 增加边框可见度 */
+.scan-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 85%;
+  border: 2rpx solid rgba(255, 87, 34, 0.7);
+  box-shadow: 0 0 40rpx rgba(255, 87, 34, 0.4);
+  animation: framePulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 进度信息 */
+.progress-info {
+  width: 90vw;
+  margin: 20rpx auto;
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24rpx;
+  backdrop-filter: blur(10px);
+}
+
+.progress-bar {
+  height: 4rpx;
+  background: rgba(255, 87, 34, 0.2);
+  border-radius: 2rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary-color);
+  position: relative;
+  border-radius: 2rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60rpx;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
+  animation: shimmer 1.5s infinite;
+}
+
+.status-text {
+  font-size: 28rpx;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+/* 分析项目列表 */
+.analysis-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.analysis-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  padding: 16rpx 0;
+}
+
+.analysis-item.active {
+  opacity: 1;
+  transform: translateX(20rpx);
+}
+
+.item-dot {
+  width: 16rpx;
+  height: 16rpx;
+  background: var(--primary-color);
+  border-radius: 50%;
+}
+
+.item-text {
+  font-size: 26rpx;
+  color: var(--text-primary);
+}
+
+/* 动画效果 */
+@keyframes glow {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 10rpx var(--primary-color); }
+  50% { opacity: 1; box-shadow: 0 0 30rpx var(--primary-color); }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.02);
+    opacity: 0.6;
+  }
+}
+
+@keyframes framePulse {
+  0% { 
+    transform: translate(-50%, -50%) scale(1);
+    border-color: rgba(255, 87, 34, 0.7);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.02);
+    border-color: rgba(255, 87, 34, 0.9);
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1);
+    border-color: rgba(255, 87, 34, 0.7);
+  }
+}
+
+@keyframes scanMove {
+  0% { 
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+
+@keyframes gridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(20rpx); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(-45deg); }
+  100% { transform: translateX(200%) skewX(-45deg); }
+} 

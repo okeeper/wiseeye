@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/result/result",
     "pages/detail/detail",
-    "pages/recognition-failed/recognition-failed"
+    "pages/recognition-failed/recognition-failed",
+    "pages/recognition-process/recognition-process"
   ],
   "window": {
     "backgroundTextStyle": "light",

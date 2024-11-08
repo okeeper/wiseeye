@@ -179,11 +179,11 @@ Page<IIndexData, IIndexMethods>({
               return result
 
             } catch (parseError) {
-              console.error('解析JSON失败:', parseError)
+              console.warn('解析JSON失败:', parseError)
               return null
             }
           } else {
-            console.error('未找到JSON代码块')
+            console.warn('未找到JSON代码块')
             return null
           }
         } else {
@@ -193,113 +193,85 @@ Page<IIndexData, IIndexMethods>({
         throw new Error('识别请求失败')
       }
     } catch (err) {
-      console.error('识别图片失败:', err)
+      console.warn('识别图片失败:', err)
       throw err
     }
   },
 
   // 处理图片
   async processImage(tempFilePath: string) {
-    wx.showLoading({
-      title: '识别中...',
-      mask: true
-    })
-    
-    const timeout = 30000
-    let timeoutId: NodeJS.Timeout
-
     try {
-      if (!this.data.token) {
-        await this.getToken()
-      }
+      let processingPage: WechatMiniprogram.Page.Instance<any, any> | null = null;
       
-      const timeoutPromise = new Promise((_, reject) => {
-        timeoutId = setTimeout(() => {
-          reject(new Error('识别超时，请重试'))
-        }, timeout)
-      })
-
-      const recognitionPromise = (async () => {
-        const imageUrl = await this.uploadImage(tempFilePath)
-        const recognitionResult = await this.recognizeImage(imageUrl)
-        
-        // 判断识别结果
-        if (!recognitionResult) {
-          console.log('识别失败，跳转到失败页面')
-          // 先清除超时定时器
-          clearTimeout(timeoutId)
-          // 隐藏加载提示
-          wx.hideLoading()
-          // 跳转到失败页面，使用本地临时文件路径
-          return wx.navigateTo({
-            url: '/pages/recognition-failed/recognition-failed?imageUrl=' + encodeURIComponent(tempFilePath),
-            fail: (err) => {
-              console.error('跳转失败页面失败:', err)
-              wx.showToast({
-                title: '跳转失败',
-                icon: 'error'
-              })
+      // 先跳转到识别过程页面
+      wx.navigateTo({
+        url: `/pages/recognition-process/recognition-process?imageUrl=${encodeURIComponent(tempFilePath)}`,
+        success: async (res) => {
+          // 获取识别过程页面实例
+          const pages = getCurrentPages()
+          processingPage = pages[pages.length - 1]
+          
+          // 在后台进行实际的识别处理
+          try {
+            if (!this.data.token) {
+              await this.getToken()
             }
-          })
-        }
-        
-        // 在结果中添加图片路径
-        return {
-          ...recognitionResult,
-          data: {
-            ...recognitionResult.data,
-            imageUrl: tempFilePath  // 使用本地图片路径
-          }
-        }
-      })()
-
-      const result = await Promise.race([
-        recognitionPromise,
-        timeoutPromise
-      ])
-
-      clearTimeout(timeoutId)
-      wx.hideLoading()
-      
-      if (result) {
-        console.log('识别成功，准备跳转到结果页面')
-        // 识别成功，跳转到结果页面
-        return wx.navigateTo({
-          url: '/pages/result/result?data=' + encodeURIComponent(JSON.stringify(result)),
-          fail: (err) => {
-            console.error('跳转结果页面失败:', err)
-            wx.showToast({
-              title: '跳转失败',
-              icon: 'error'
+            
+            // 上传图片阶段 (15%)
+            const imageUrl = await this.uploadImage(tempFilePath)
+            
+            // 开始识别阶段 (45%)
+            const recognitionResult = await this.recognizeImage(imageUrl)
+            
+            // 处理识别结果
+            if (!recognitionResult) {
+              // 等待进度动画接近完成
+              await new Promise(resolve => setTimeout(resolve, 1000))
+              processingPage?.setData({ scanProgress: 100 })
+              await new Promise(resolve => setTimeout(resolve, 500))
+              
+              wx.redirectTo({
+                url: '/pages/recognition-failed/recognition-failed?imageUrl=' + encodeURIComponent(tempFilePath)
+              })
+              return
+            }
+            
+            // 等待进度动画接近完成
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            processingPage?.setData({ scanProgress: 100 })
+            await new Promise(resolve => setTimeout(resolve, 500))
+            
+            // 识别成功，跳转到结果页面
+            const result = {
+              ...recognitionResult,
+              data: {
+                ...recognitionResult.data,
+                imageUrl: tempFilePath
+              }
+            }
+            
+            wx.redirectTo({
+              url: '/pages/result/result?data=' + encodeURIComponent(JSON.stringify(result))
+            })
+            
+          } catch (err) {
+            // 等待进度动画接近完成
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            processingPage?.setData({ scanProgress: 100 })
+            await new Promise(resolve => setTimeout(resolve, 500))
+            
+            wx.redirectTo({
+              url: '/pages/recognition-failed/recognition-failed?imageUrl=' + encodeURIComponent(tempFilePath)
             })
           }
-        })
-      }
-
-    } catch (err) {
-      clearTimeout(timeoutId)
-      wx.hideLoading()
+        }
+      })
       
-      if (err.message === '识别超时，请重试') {
-        wx.showModal({
-          title: '提示',
-          content: '识别时间较长，请稍后重试',
-          showCancel: true,
-          cancelText: '取消',
-          confirmText: '重试',
-          success: (res) => {
-            if (res.confirm) {
-              this.processImage(tempFilePath)
-            }
-          }
-        })
-      } else {
-        wx.showToast({
-          title: err.message || '识别失败',
-          icon: 'error',
-          duration: 2000
-        })
-      }
+    } catch (err) {
+      wx.showToast({
+        title: '页面跳转失败',
+        icon: 'error'
+      })
     }
   },
 

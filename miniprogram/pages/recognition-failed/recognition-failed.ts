@@ -66,4 +66,4 @@ Page<IFailedData, IFailedMethods>({
       delta: 2
     })
   }
-}) 
+})
