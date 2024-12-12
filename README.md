@@ -9,7 +9,6 @@
 # 技术栈
 1. typescript
 2. 微信小程序
-3. 百度AI
 
 # 项目结构
 ```
@@ -50,5 +49,5 @@ miniprogram/
 
 # 扫码体验
 
-[](./doc/erweima.jpg)
+![](./doc/erweima.jpg)
 
