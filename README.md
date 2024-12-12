@@ -47,3 +47,8 @@ miniprogram/
 ├── tsconfig.json          # TypeScript配置文件
 └── package.json           # 项目依赖和脚本配置
 ```
+
+# 扫码体验
+
+[](./doc/erweima.jpg)
+
